@@ -1,24 +1,17 @@
-﻿using System.Security.Cryptography;
-
-public class Vessel
+﻿public class Vessel
 {
     public int Size { get; set; }
+    public int[] Rows { get; set; }
+    public int[] Columns { get; set; }
+    public int Orientation { get; set; }
 
-    public List<int> Position { get; set; }
-
-    public bool Orientation { get; set; }
-
-    public bool SetOrientation()
+    public Vessel(int size)
     {
-        int orientation = Random.Shared.Next(0, 2);
-        if (orientation == 0)
-            return true;
-        return false;
+        Size = size;
+        Rows = new int[size];
+        Columns = new int[size];
     }
-    public void CreateVessel(int[,] matrix)
-    {
-        
 
-    }
+    
 }
 
