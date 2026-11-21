@@ -23,7 +23,15 @@ public class Boards
                 BoardMatrix[row, column] = '~';           // criação dos tabuleiros 
             }
         }
+    }
 
+    public void PositionVessels()
+    {
+        foreach (Vessel currentVessel in VesselsPositions)
+        {
+            GeneratePositions(currentVessel);
+            RegisterPositions(currentVessel);
+        }
     }
     public void GeneratePositions(Vessel currentVessel)
     {
@@ -47,23 +55,10 @@ public class Boards
                 }
             }
         } while (!ValidatePosition(currentVessel));
-    }
 
-    public void RegisterPositions(Vessel currentVessel)
-    {
-        for (int i = 0; i < currentVessel.Size; i++)
-        {                                                                          //registra as posições válidas no tabuleiro
-            BoardMatrix[currentVessel.Rows[i], currentVessel.Columns[i]] = 'N';
-        }
+        RegisterPositions(currentVessel);
     }
-    public void PositionVessels()
-    {
-        foreach (Vessel currentVessel in VesselsPositions)
-        {
-            GeneratePositions(currentVessel);
-            RegisterPositions(currentVessel);
-        }
-    }
+    
     public bool ValidatePosition(Vessel currentVessel)
     {
         for (int i = 0; i < currentVessel.Size; i++)
@@ -85,6 +80,24 @@ public class Boards
         return true;
     }
 
+    public void RegisterPositions(Vessel currentVessel)
+    {
+        for (int i = 0; i < currentVessel.Size; i++)
+        {                                                                          //registra as posições válidas no tabuleiro
+            BoardMatrix[currentVessel.Rows[i], currentVessel.Columns[i]] = 'N';
+        }
+    }
 
+    public void ShowMatrix()
+    {
+        for (int EixoX = 0; EixoX < this.Size; EixoX++)
+        {
+            for (int EixoY = 0; EixoY < this.Size; EixoY++)
+            {
+                
+                Console.Write($"{BoardMatrix[EixoX, EixoY]}".PadLeft(2));
+            }
+            Console.WriteLine();
+        }
+    }
 }
-
