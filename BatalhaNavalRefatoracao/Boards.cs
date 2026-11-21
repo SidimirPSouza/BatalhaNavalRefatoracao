@@ -23,39 +23,42 @@ public class Boards
                 BoardMatrix[row, column] = '~';           // criação dos tabuleiros 
             }
         }
-
     }
+
     public void PositionVessels()
     {
         foreach (Vessel currentVessel in VesselsPositions)
         {
-            do
-            {
-                currentVessel.Orientation = RandomNumberGenerator.GetInt32(0, 2);
-                int row = RandomNumberGenerator.GetInt32(0, Size);                   //sorteia a orientação e a posição de linha e coluna
-                int column = RandomNumberGenerator.GetInt32(0, Size);
-
-                for (int accontant = 0; accontant < currentVessel.Size; accontant++)    //com base no sorteio inicial e tamanho da embarcação
-                {                                                                            //calcula as posições de cada embarcação
-                    if (currentVessel.Orientation == 0) // embarcação na horizontal
-                    {
-                        currentVessel.Rows[accontant] = row;
-                        currentVessel.Columns[accontant] = column + accontant;
-                    }
-                    else // embarcação na vertical
-                    {
-                        currentVessel.Rows[accontant] = row + accontant;
-                        currentVessel.Columns[accontant] = column;
-                    }
-                }
-            } while (!ValidatePosition(currentVessel));
-
-            for (int i = 0; i < currentVessel.Size; i++)
-            {                                                                          //registra as posições válidas no tabuleiro
-                BoardMatrix[currentVessel.Rows[i], currentVessel.Columns[i]] = 'N';
-            }
+            GeneratePositions(currentVessel);
+            RegisterPositions(currentVessel);
         }
     }
+    public void GeneratePositions(Vessel currentVessel)
+    {
+        do
+        {
+            currentVessel.Orientation = RandomNumberGenerator.GetInt32(0, 2);
+            int row = RandomNumberGenerator.GetInt32(0, Size);                   //sorteia a orientação e a posição de linha e coluna
+            int column = RandomNumberGenerator.GetInt32(0, Size);
+
+            for (int accontant = 0; accontant < currentVessel.Size; accontant++)    //com base no sorteio inicial e tamanho da embarcação
+            {                                                                            //calcula as posições de cada embarcação
+                if (currentVessel.Orientation == 0) // embarcação na horizontal
+                {
+                    currentVessel.Rows[accontant] = row;
+                    currentVessel.Columns[accontant] = column + accontant;
+                }
+                else // embarcação na vertical
+                {
+                    currentVessel.Rows[accontant] = row + accontant;
+                    currentVessel.Columns[accontant] = column;
+                }
+            }
+        } while (!ValidatePosition(currentVessel));
+
+        RegisterPositions(currentVessel);
+    }
+    
     public bool ValidatePosition(Vessel currentVessel)
     {
         for (int i = 0; i < currentVessel.Size; i++)
@@ -77,6 +80,24 @@ public class Boards
         return true;
     }
 
+    public void RegisterPositions(Vessel currentVessel)
+    {
+        for (int i = 0; i < currentVessel.Size; i++)
+        {                                                                          //registra as posições válidas no tabuleiro
+            BoardMatrix[currentVessel.Rows[i], currentVessel.Columns[i]] = 'N';
+        }
+    }
 
+    public void ShowMatrix()
+    {
+        for (int EixoX = 0; EixoX < this.Size; EixoX++)
+        {
+            for (int EixoY = 0; EixoY < this.Size; EixoY++)
+            {
+                
+                Console.Write($"{BoardMatrix[EixoX, EixoY]}".PadLeft(2));
+            }
+            Console.WriteLine();
+        }
+    }
 }
-
