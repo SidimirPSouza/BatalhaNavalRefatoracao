@@ -12,21 +12,36 @@
 
             try
             {
-                Console.WriteLine("Digite a posição de linha: ");
-                EixoX = int.Parse(Console.ReadLine());
-                Console.WriteLine("Digite a posição coluna: ");
-                EixoY = int.Parse(Console.ReadLine());
-                if (EixoX <= 9 && EixoY <= 9)
+                Console.WriteLine("Sua vez!");
+                Console.WriteLine("\nDigite a posição de linha: ");
+                coordinateX = int.Parse(Console.ReadLine());
+
+                if (coordinateX < 0 || coordinateX > 9)
+                {
+                    Console.WriteLine("Valor inválido! Digite um valor entre 0 e 9.");
+                    continue;
+                }
+
+
+                while (true) {
+                    Console.WriteLine("Digite a posição de coluna: ");
+                    coordinateY = int.Parse(Console.ReadLine());
+
+                    if (coordinateY < 0 || coordinateY > 9)
+                    {
+                        Console.WriteLine("Valor inválido! Digite um valor entre 0 e 9.");
+                        continue;
+                    }
+
                     return "Sucesso";
-                else
-                    Console.WriteLine("Posição de linha/coluna invalidos");
+                }
             }
+                
             catch (FormatException)
             {
-                Console.WriteLine("Valor informado não é valido, por favor insira um numero inteiro e que esteja no range");
-                Thread.Sleep(5000);
+                Console.WriteLine("O valor informado é inválido. Digite um número inteiro entre 0 e 9.");
+                Thread.Sleep(1500);
             }
         }
     }
-
 }

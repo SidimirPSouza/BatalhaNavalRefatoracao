@@ -90,18 +90,18 @@ public class Boards
         }
     }
 
-    public void ShowMatrix(int EixoX, char[,] Matrix)
+    public void ShowMatrix(int coordinateX, char[,] Matrix)
     {
-        for (int EixoY = 0; EixoY < this.Size; EixoY++)
+        for (int coordinateY = 0; coordinateY < this.Size; coordinateY++)
         {
-            if (Matrix[EixoX, EixoY] == '~')
+            if (Matrix[coordinateX, coordinateY] == '~')
                 Console.ForegroundColor = ConsoleColor.Blue;
-            else if (Matrix[EixoX, EixoY] == 'X')
+            else if (Matrix[coordinateX, coordinateY] == 'X')
                 Console.ForegroundColor = ConsoleColor.Red;
-            else if (Matrix[EixoX, EixoY] == 'O')
+            else if (Matrix[coordinateX, coordinateY] == 'O')
                 Console.ForegroundColor = ConsoleColor.Green;
 
-            Console.Write($"{Matrix[EixoX, EixoY]}".PadLeft(2));
+            Console.Write($"{Matrix[coordinateX, coordinateY]}".PadLeft(2));
 
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -112,16 +112,16 @@ public class Boards
         CreateHeader();
 
 
-        for (int EixoX = 0; EixoX < this.Size; EixoX++)
+        for (int coordinateX = 0; coordinateX < this.Size; coordinateX++)
         {
-            ShowMatrix(EixoX, BoardMatrix);
+            ShowMatrix(coordinateX, BoardMatrix);
             
-            Console.Write($"{EixoX}".PadLeft(2));
+            Console.Write($"{coordinateX}".PadLeft(2));
             Console.Write(" ");
 
-            ShowMatrix(EixoX, board.ShotsMatrix);
+            ShowMatrix(coordinateX, board.ShotsMatrix);
 
-            Console.Write($"{EixoX}".PadLeft(2));
+            Console.Write($"{coordinateX}".PadLeft(2));
             Console.WriteLine();
         }
     }
@@ -130,15 +130,15 @@ public class Boards
     {
         Console.Write("Seu tabuleiro:          Tabuleiro PC:");
         Console.WriteLine();
-        for (int EixoY = 0; EixoY < this.Size; EixoY++)
+        for (int coordinateY = 0; coordinateY < this.Size; coordinateY++)
         {
-            Console.Write($"{EixoY}".PadLeft(2));
+            Console.Write($"{coordinateY}".PadLeft(2));
         }
         Console.Write("   ");
 
-        for (int EixoY = 0; EixoY < this.Size; EixoY++)
+        for (int coordinateY = 0; coordinateY < this.Size; coordinateY++)
         {
-            Console.Write($"{EixoY}".PadLeft(2));
+            Console.Write($"{coordinateY}".PadLeft(2));
         }
         Console.WriteLine();
     }

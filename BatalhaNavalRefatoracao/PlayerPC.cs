@@ -7,9 +7,9 @@
     }
 
     //gera as duas posicaoes de jogada da maquina
-     public void GerarPosicoesDeJogada()
+     public void GenerateMovePositions()
     {
-        this.EixoX = Random.Shared.Next(0, this.PlayerBoard.Size);
-        this.EixoY = Random.Shared.Next(0, this.PlayerBoard.Size);
+        this.coordinateX = Random.Shared.Next(0, this.PlayerBoard.Size);
+        this.coordinateY = Random.Shared.Next(0, this.PlayerBoard.Size);
     }
 }
