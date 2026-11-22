@@ -6,12 +6,14 @@ bool trocarJogador = true;
 Boards playerBoard = new Boards(VesselSizes);
 playerBoard.InitializeBoards();
 playerBoard.PositionVessels();
-PlayerHuman player = new PlayerHuman(playerBoard);
+
 
 Boards pcBoard = new Boards(VesselSizes);
 pcBoard.InitializeBoards();
 pcBoard.PositionVessels();
-PlayerPC playerPC = new PlayerPC(pcBoard);
+
+PlayerHuman player = new PlayerHuman(pcBoard);
+PlayerPC playerPC = new PlayerPC(playerBoard);
 
 
 void PlayerHuman()
@@ -30,7 +32,7 @@ void PlayerHuman()
 
 void PlayerPC()
 {
-    pcBoard.ShowAllMatrix(playerBoard);
+    playerBoard.ShowAllMatrix(pcBoard);
     playerPC.GerarPosicoesDeJogada();
 
     if (playerPC.CheckCoordinates()){
@@ -57,7 +59,7 @@ void IniciarJogo()
             PlayerPC();
         }
 
-    } while(player.Points < 12 && playerPC.Points < 12);
+    } while(player.Points < 17 && playerPC.Points < 17);
 
     Console.WriteLine("Fim de jogo");
     if(player.Points > playerPC.Points)
