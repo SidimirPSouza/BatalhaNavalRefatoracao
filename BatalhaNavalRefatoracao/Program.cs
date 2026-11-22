@@ -1,8 +1,6 @@
 ﻿int[] VesselSizes = { 5, 4, 3, 3, 2 };
-bool trocarJogador = true;
+bool changePlayer = true;
 
-// depois de criadao a matrix de cada jogador passa ela para a classe jogador. 
-//Aqui no program, só chamar as funções de cada um para fazer o registo de jogada, ver se é valida e registrar la na matrix
 Boards playerBoard = new Boards(VesselSizes);
 playerBoard.InitializeBoards();
 playerBoard.PositionVessels();
@@ -20,57 +18,92 @@ void PlayerHuman()
 {
     playerBoard.ShowAllMatrix(pcBoard);
     player.ReceiveCoordinates();
-    if (player.CheckCoordinates())
+
+    if (player.PlayerBoard.BoardMatrix[player.coordinateX, player.coordinateY] == 'X' ||
+       player.PlayerBoard.BoardMatrix[player.coordinateX, player.coordinateY] == 'O')
     {
-        trocarJogador = true;
+        Console.WriteLine("Esta posição já foi escolhida anteriormente. Você perdeu sua vez!");
+        Thread.Sleep(1200);
+        changePlayer = false;
+    }
+    else if (player.CheckCoordinates())
+    {
+        changePlayer = true;
     }
     else
     {
-        trocarJogador = false;
+        Console.WriteLine("Você errou o disparo.");
+        Thread.Sleep(1200);
+        changePlayer = false;
     }
 }
 
 void PlayerPC()
 {
     playerBoard.ShowAllMatrix(pcBoard);
-    playerPC.GerarPosicoesDeJogada();
 
-    if (playerPC.CheckCoordinates()){
-        trocarJogador = false;
-    } else
+    Console.WriteLine("Aguarde, o computador está jogando...");
+    Thread.Sleep(2000);
+
+    playerPC.GenerateMovePositions();
+
+    Console.WriteLine($"O computador atacou a posição [{playerPC.coordinateX}, {playerPC.coordinateY}]!");
+
+    Thread.Sleep(2000);
+    bool isHit = playerPC.CheckCoordinates();
+
+    if (isHit)
     {
-        trocarJogador = true;
-
+        Console.WriteLine("O computador acertou uma de suas embarcações...");
+        Thread.Sleep(2000);
+        changePlayer = false;
     }
+    else
+    {
+        Console.WriteLine("O computador errou o disparo!");
+        Thread.Sleep(2000);
+        changePlayer = true;
+    }
+}
 
+void Welcome()
+{
+    Console.WriteLine("Bem vindo ao jogo Batalha Naval 2.0!");
+    Console.WriteLine("Seu objetivo é afundar todas as embarcações do adversário.");
+    Console.WriteLine("Para isso, escolha atentamente as linhas e colunas que deseja atacar e faça uma boa estratégia!");
+    Console.WriteLine("\nBoa sorte!");
+
+    Console.WriteLine("\nPressione qualquer tecla para começar...");
     Console.ReadKey();
 }
 
-void IniciarJogo()
+void StartGame()
 {
     do
     {
         Console.Clear();
-        if (trocarJogador)
+        if (changePlayer)
         {
             PlayerHuman();
-        } else
+        }
+        else
         {
             PlayerPC();
         }
 
-    } while(player.Points < 17 && playerPC.Points < 17);
+    } while (player.Points < 17 && playerPC.Points < 17);
 
-    Console.WriteLine("Fim de jogo");
-    if(player.Points > playerPC.Points)
+    Console.WriteLine("Fim de jogo.");
+    if (player.Points > playerPC.Points)
     {
-        Console.WriteLine("Você é o campeão");
+        Console.WriteLine("Parabéns, você é o campeão!");
     }
     else
     {
-        Console.WriteLine("Maquina venceu");
+        Console.WriteLine("A máquina venceu. Tente novamente...");
     }
 
 }
 
-IniciarJogo();
+Welcome();
+StartGame();
