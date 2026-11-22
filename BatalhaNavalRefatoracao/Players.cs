@@ -60,6 +60,7 @@
     public void RecordMoves(char simbolo)
     {
         this.PlayerBoard.BoardMatrix[EixoX, EixoY] = simbolo;
+        this.PlayerBoard.ShotsMatrix[EixoX, EixoY] = simbolo;
     }
 
 }

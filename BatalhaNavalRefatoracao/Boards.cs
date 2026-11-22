@@ -4,6 +4,7 @@ public class Boards
 {
     public int Size { get; set; } = 10;
     public char[,] BoardMatrix { get; set; } = new char[10, 10];
+    public char[,] ShotsMatrix { get; set; } = new char[10, 10];
     public List<Vessel> VesselsPositions { get; set; } = new List<Vessel>();
 
     public Boards(int[] vesselSizes)
@@ -20,7 +21,8 @@ public class Boards
         {
             for (int column = 0; column < Size; column++)
             {
-                BoardMatrix[row, column] = '~';           // criação dos tabuleiros 
+                BoardMatrix[row, column] = '~';
+                ShotsMatrix[row, column] = '~';         // criação dos tabuleiros 
             }
         }
     }
@@ -117,7 +119,7 @@ public class Boards
             Console.Write($"{EixoX}".PadLeft(2));
             Console.Write(" ");
 
-            ShowMatrix(EixoX, board.BoardMatrix);
+            ShowMatrix(EixoX, board.ShotsMatrix);
 
             Console.Write($"{EixoX}".PadLeft(2));
             Console.WriteLine();
