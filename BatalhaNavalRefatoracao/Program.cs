@@ -16,7 +16,7 @@ PlayerPC playerPC = new PlayerPC(pcBoard);
 
 void PlayerHuman()
 {
-    playerBoard.ShowMatrix();
+    playerBoard.ShowAllMatrix(pcBoard);
     player.ReceiveCoordinates();
     if (player.CheckCoordinates())
     {
@@ -30,7 +30,7 @@ void PlayerHuman()
 
 void PlayerPC()
 {
-    pcBoard.ShowMatrix();
+    pcBoard.ShowAllMatrix(playerBoard);
     playerPC.GerarPosicoesDeJogada();
 
     if (playerPC.CheckCoordinates()){
@@ -44,8 +44,8 @@ void PlayerPC()
     Console.ReadKey();
 }
 
-void IniciarJogo(){
-
+void IniciarJogo()
+{
     do
     {
         Console.Clear();
@@ -62,7 +62,7 @@ void IniciarJogo(){
     Console.WriteLine("Fim de jogo");
     if(player.Points > playerPC.Points)
     {
-        Console.WriteLine("Você é o campião");
+        Console.WriteLine("Você é o campeão");
     }
     else
     {

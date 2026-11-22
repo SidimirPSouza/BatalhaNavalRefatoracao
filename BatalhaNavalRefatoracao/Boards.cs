@@ -58,7 +58,7 @@ public class Boards
 
         RegisterPositions(currentVessel);
     }
-    
+
     public bool ValidatePosition(Vessel currentVessel)
     {
         for (int i = 0; i < currentVessel.Size; i++)
@@ -88,16 +88,56 @@ public class Boards
         }
     }
 
-    public void ShowMatrix()
+    public void ShowMatrix(int EixoX, char[,] Matrix)
     {
+        for (int EixoY = 0; EixoY < this.Size; EixoY++)
+        {
+            if (Matrix[EixoX, EixoY] == '~')
+                Console.ForegroundColor = ConsoleColor.Blue;
+            else if (Matrix[EixoX, EixoY] == 'X')
+                Console.ForegroundColor = ConsoleColor.Red;
+            else if (Matrix[EixoX, EixoY] == 'O')
+                Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.Write($"{Matrix[EixoX, EixoY]}".PadLeft(2));
+
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+    }
+
+    public void ShowAllMatrix(Boards board)
+    {
+        CreateHeader();
+
+
         for (int EixoX = 0; EixoX < this.Size; EixoX++)
         {
-            for (int EixoY = 0; EixoY < this.Size; EixoY++)
-            {
-                
-                Console.Write($"{BoardMatrix[EixoX, EixoY]}".PadLeft(2));
-            }
+            ShowMatrix(EixoX, BoardMatrix);
+            
+            Console.Write($"{EixoX}".PadLeft(2));
+            Console.Write(" ");
+
+            ShowMatrix(EixoX, board.BoardMatrix);
+
+            Console.Write($"{EixoX}".PadLeft(2));
             Console.WriteLine();
         }
+    }
+
+    private void CreateHeader()
+    {
+        Console.Write("Seu tabuleiro:          Tabuleiro PC:");
+        Console.WriteLine();
+        for (int EixoY = 0; EixoY < this.Size; EixoY++)
+        {
+            Console.Write($"{EixoY}".PadLeft(2));
+        }
+        Console.Write("   ");
+
+        for (int EixoY = 0; EixoY < this.Size; EixoY++)
+        {
+            Console.Write($"{EixoY}".PadLeft(2));
+        }
+        Console.WriteLine();
     }
 }
